@@ -1,0 +1,198 @@
+﻿<!-- Login Screen -->
+<Window x:Class="LoginForm.View.LoginView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LoginForm.View"
+        xmlns:viewModel="clr-namespace:LoginForm.ViewModel" xmlns:customcontrols="clr-namespace:LoginForm.CustomControls"
+        mc:Ignorable="d"
+        Title="LoginView" 
+        Height="550" 
+        Width="800"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        MouseDown="Window_MouseDown"
+        Background="Transparent"
+        AllowsTransparency="True">
+
+    <Window.DataContext>
+        <viewModel:LoginViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+    </Window.Resources>
+
+    <Window.Visibility>
+        <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}"/>
+    </Window.Visibility>
+
+
+   <!-- Background starts here-->
+    <Border>
+        <Border.Background>
+            <ImageBrush ImageSource="/Assets/Background.jpg"/>
+        </Border.Background>
+        
+        <Border BorderThickness="3"
+                Opacity="0.7">
+
+            <!-- Gradient Color for the border -->
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#00FEFB" Offset="0"/>
+                    <GradientStop Color="#1786F9" Offset="0.5"/>
+                </LinearGradientBrush>
+                </Border.BorderBrush>
+            <!-- Gray / Black tint for the background image -->
+            <Border.Background>
+                <LinearGradientBrush>
+                    <GradientStop Color="#323232" Offset="0"/>
+                    <GradientStop Color="#222222" Offset="0.5"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            
+            <!-- Grid for padding -->
+            <Grid>
+                <Grid.RowDefinitions>
+                    
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                    
+                </Grid.RowDefinitions>
+
+                <!-- Grid for layout  -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Buttons for Open and Closing -->
+                    <Button x:Name="btnMinimize"
+                            Grid.Column="1"
+                            Click="BtnMinimize_Click"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Height="15"
+                            Width="15">
+
+                        <Image Source="/Assets/Minimize_btn.png" Cursor="Hand"/>
+
+                    </Button>
+                    
+                    <Button x:Name="btnClose"
+                            Grid.Column="2"
+                            Click="BtnClose_Click"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Height="15"
+                            Width="15">
+                        <Image Source="/Assets/Close_Btn.png" Cursor="Hand"/>
+
+                    </Button>
+                </Grid>
+
+                <!-- Main Content -->
+                <StackPanel Width="250"
+                            Grid.Row="2"
+                            Orientation="Vertical">
+                    <Image Source="/Assets/GensaSys.png"
+                           Width="200"
+                           Height="200"/>
+
+                    <!-- USERNAME STARTS -->
+                    <TextBlock Text="USERNAME:"
+                               Foreground="White"
+                               FontSize="15"
+                               FontWeight="DemiBold"
+                               FontFamily="DIN"
+                               HorizontalAlignment="Center"
+                               Margin="0,-15,0,0"/>
+
+                    <TextBox x:Name="userNamme"
+                             Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                             FontSize="15"
+                             FontFamily="DIN"
+                             FontWeight="Medium"
+                             Background="Transparent"
+                             Foreground="WhiteSmoke"
+                             CaretBrush="LightCyan"
+                             BorderBrush="LightCyan"
+                             BorderThickness="0,0,0,2"
+                             VerticalAlignment="Center"
+                             Margin="0,5,0,0"
+                             />
+
+                    <!-- PASSWORD STARTS -->
+                    <TextBlock Text="PASSWORD:"
+                               Foreground="White"
+                               FontSize="15"
+                               FontWeight="DemiBold"
+                               FontFamily="DIN"
+                               HorizontalAlignment="Center"
+                               Margin="0,15,0,0"/>
+
+                    <customcontrols:BindablePasswordBox Password ="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        Height="28">
+                    </customcontrols:BindablePasswordBox>
+
+                    <TextBlock Text="{Binding ErrorMessage}"
+                               Foreground="White"
+                               FontSize="15"
+                               FontWeight="Light"
+                               FontFamily="DIN"
+                               HorizontalAlignment="Center"
+                               Margin="0,15,0,0"
+                               TextWrapping="Wrap"/>
+                    
+                    <!-- LOGIN BTN -->
+                    <Button x:Name="btnLogin"
+                            Grid.Column="2"
+                            Command="{Binding LoginCommand}"
+                            Content="LOGIN"
+                            Foreground="Black"
+                            Background="LightCyan"
+                            BorderThickness="0"
+                            Height="25"
+                            Width="150"
+                            Margin="0,40,0,0"
+                            Cursor="Hand">
+
+                    </Button>
+
+                    <!-- Stack panel for the reset password function -->
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Margin="0,15,0,0">
+                        <TextBlock Text="Forgot your password?"
+                               Foreground="LightGray"
+                               FontSize="10"
+                               FontWeight="DemiBold"
+                               FontFamily="DIN"
+                               HorizontalAlignment="Center"/>
+
+                        <TextBlock Text="Reset"
+                               Foreground="WhiteSmoke"
+                               FontSize="10"
+                               FontWeight="DemiBold"
+                               FontFamily="DIN"
+                               HorizontalAlignment="Center"
+                               Margin="8,0,0,0"/>
+
+
+                    </StackPanel>
+
+                </StackPanel>
+                
+            </Grid>
+        
+        </Border>
+    </Border>
+   
+</Window>
