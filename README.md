@@ -1,7 +1,7 @@
 # GensaSys: IT Support Automation & Efficiency Suite (WIP)
 GensaSys is a work-in-progress Windows application designed to empower IT support professionals and system administrators with essential tools for increased efficiency and streamlined workflows.
 
-Key Features (Planned):
+## Key Features (Planned):
 
 Ticketing System: Manage support requests effectively with a centralized ticketing system featuring tracking, prioritization, and communication tools.
 Device Database: Maintain a comprehensive repository of enrolled devices, including detailed hardware information, software configuration, and service history.
