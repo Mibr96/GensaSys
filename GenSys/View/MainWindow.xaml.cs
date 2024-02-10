@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Runtime.InteropServices;
+using System.Windows.Interop;
 
 namespace LoginForm
 {
@@ -23,15 +25,15 @@ namespace LoginForm
         public MainWindow()
         {
             InitializeComponent();
+            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
         }
 
-
+        [DllImport("user32.dll")]   
+        public static extern IntPtr SendMessage(IntPtr hwnd, int wMsg, int wparam, int lParam);
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
+            WindowInteropHelper helper = new WindowInteropHelper(this);
+            SendMessage(helper.Handle, 161, 2, 0);
         }
 
         private void BtnMinimize_Click(object sender, RoutedEventArgs e)
@@ -44,9 +46,18 @@ namespace LoginForm
             Application.Current.Shutdown();
         }
 
-        private void btnMaximize_Click(object sender, RoutedEventArgs e)
+        private void BtnMaximize_Click(object sender, RoutedEventArgs e)
         {
-            WindowState = WindowState.Maximized;
+            if (this.WindowState == WindowState.Normal)
+            {
+                this.WindowState = WindowState.Maximized;
+            }
+            else this.WindowState = WindowState.Normal;
+        }
+
+        private void ControlBar_MouseEnter(object sender, MouseEventArgs e)
+        {
+            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
         }
     }
 }

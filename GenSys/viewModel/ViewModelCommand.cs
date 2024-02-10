@@ -32,7 +32,14 @@ namespace LoginForm.ViewModel
         //Methods
         public bool CanExecute(object parameter)
         {
-            return _canExecuteAction == null ? true : _canExecuteAction(parameter);
+            if (_canExecuteAction == null)
+            {
+                return true;
+            }
+            else
+            {
+                return _canExecuteAction(parameter);
+            }
         }
         public void Execute(object parameter)
         {
