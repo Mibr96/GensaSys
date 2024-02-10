@@ -12,7 +12,7 @@ namespace LoginForm.Reposiitories
         private readonly string _connectionString;
         public RepositoryBase()
         {
-            _connectionString = "Server=192.168.3.17; Database=GenSys; User Id=Admin; Password=Mikk229d..; Trusted_Connection=false; MultipleActiveResultSets=true;";
+            _connectionString = "Server=192.168.3.17; Database=GenSys; User Id=Admin; Password=xxxxxx; Trusted_Connection=false; MultipleActiveResultSets=true;";
         }
         protected SqlConnection GetConnection()
         {
